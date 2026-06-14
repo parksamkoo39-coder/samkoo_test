@@ -124,6 +124,54 @@ h1 {
     box-shadow: 0 6px 15px var(--btn-shadow-hover);
 }
 
+.btn-small {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+/* Contact Section */
+.contact-section {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--shadow-color);
+    text-align: left;
+}
+
+.contact-section h3 {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.contact-section form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-section input, 
+.contact-section textarea {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--shadow-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
+.contact-section input:focus, 
+.contact-section textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.contact-section textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
 /* Ball Colors */
 .color-1 { background-color: #fbc400; } /* Yellow */
 .color-2 { background-color: #69c8f2; } /* Blue */
