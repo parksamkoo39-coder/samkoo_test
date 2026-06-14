@@ -58,9 +58,12 @@ generateBtn.addEventListener('click', () => {
 
 // Animal Face Test Logic
 const URL = "https://teachablemachine.withgoogle.com/models/FyFuTzpqO/";
-let model, maxPredictions;
+let model, webcam, maxPredictions;
+let isWebcamMode = false;
+let isWebcamRunning = false;
 
-async function init() {
+async function initModel() {
+    if (model) return;
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
     model = await tmImage.load(modelURL, metadataURL);
@@ -75,6 +78,66 @@ const resultContainer = document.getElementById('result-container');
 const resultLabel = document.getElementById('result-label');
 const loading = document.getElementById('loading');
 
+const modeUploadBtn = document.getElementById('mode-upload');
+const modeWebcamBtn = document.getElementById('mode-webcam');
+const uploadContainer = document.getElementById('upload-container');
+const webcamContainer = document.getElementById('webcam-container');
+const startWebcamBtn = document.getElementById('start-webcam');
+const webcamViewer = document.getElementById('webcam-viewer');
+
+// Mode Switching
+modeUploadBtn?.addEventListener('click', () => {
+    isWebcamMode = false;
+    modeUploadBtn.classList.add('active');
+    modeWebcamBtn.classList.remove('active');
+    uploadContainer.style.display = 'block';
+    webcamContainer.style.display = 'none';
+    stopWebcam();
+});
+
+modeWebcamBtn?.addEventListener('click', () => {
+    isWebcamMode = true;
+    modeWebcamBtn.classList.add('active');
+    modeUploadBtn.classList.remove('active');
+    webcamContainer.style.display = 'block';
+    uploadContainer.style.display = 'none';
+});
+
+// Webcam Logic
+async function initWebcam() {
+    await initModel();
+    const flip = true;
+    webcam = new tmImage.Webcam(200, 200, flip);
+    await webcam.setup();
+    await webcam.play();
+    isWebcamRunning = true;
+    startWebcamBtn.style.display = 'none';
+    webcamViewer.appendChild(webcam.canvas);
+    window.requestAnimationFrame(webcamLoop);
+}
+
+async function webcamLoop() {
+    if (!isWebcamRunning) return;
+    webcam.update();
+    await predict(webcam.canvas);
+    window.requestAnimationFrame(webcamLoop);
+}
+
+function stopWebcam() {
+    if (webcam) {
+        webcam.stop();
+        isWebcamRunning = false;
+        startWebcamBtn.style.display = 'inline-block';
+        if (webcam.canvas && webcamViewer.contains(webcam.canvas)) {
+            webcamViewer.removeChild(webcam.canvas);
+        }
+        webcam = null;
+    }
+}
+
+startWebcamBtn?.addEventListener('click', initWebcam);
+
+// Upload Logic
 if (uploadArea) {
     uploadArea.onclick = () => imageInput.click();
 
@@ -86,24 +149,31 @@ if (uploadArea) {
                 imagePreview.src = event.target.result;
                 imagePreview.style.display = 'block';
                 uploadLabel.style.display = 'none';
-                predict();
+                await predict(imagePreview);
             };
             reader.readAsDataURL(file);
         }
     };
 }
 
-async function predict() {
+// Prediction Logic (Handles both Image and Webcam Canvas)
+async function predict(inputElement) {
     if (!model) {
         loading.style.display = 'block';
-        await init();
+        await initModel();
     }
-    loading.style.display = 'block';
-    resultContainer.style.display = 'none';
-
-    const prediction = await model.predict(imagePreview);
     
-    loading.style.display = 'none';
+    // Only show "Analyzing..." for static upload mode to avoid flicker in real-time mode
+    if (!isWebcamMode) {
+        loading.style.display = 'block';
+        resultContainer.style.display = 'none';
+    }
+
+    const prediction = await model.predict(inputElement);
+    
+    if (!isWebcamMode) {
+        loading.style.display = 'none';
+    }
     resultContainer.style.display = 'block';
 
     let maxProb = 0;
@@ -112,11 +182,15 @@ async function predict() {
     prediction.forEach(p => {
         const percent = (p.probability * 100).toFixed(0) + "%";
         if (p.className === "강아지") {
-            document.getElementById('dog-bar').style.width = percent;
-            document.getElementById('dog-percent').textContent = `Dog: ${percent}`;
+            const dogBar = document.getElementById('dog-bar');
+            if (dogBar) dogBar.style.width = percent;
+            const dogPercent = document.getElementById('dog-percent');
+            if (dogPercent) dogPercent.textContent = `Dog: ${percent}`;
         } else if (p.className === "고양이") {
-            document.getElementById('cat-bar').style.width = percent;
-            document.getElementById('cat-percent').textContent = `Cat: ${percent}`;
+            const catBar = document.getElementById('cat-bar');
+            if (catBar) catBar.style.width = percent;
+            const catPercent = document.getElementById('cat-percent');
+            if (catPercent) catPercent.textContent = `Cat: ${percent}`;
         }
         
         if (p.probability > maxProb) {

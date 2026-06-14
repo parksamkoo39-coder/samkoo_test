@@ -20,16 +20,30 @@
         <div class="test-section">
             <h2>Animal Face Test</h2>
             <p>Are you a Dog or a Cat?</p>
-            <div class="upload-area" id="upload-area">
-                <input type="file" id="image-input" accept="image/*" hidden>
-                <div id="preview-container">
-                    <img id="image-preview" src="#" alt="Preview" style="display: none; max-width: 100%; border-radius: 10px;">
-                    <div id="upload-label">
-                        <span class="upload-icon">📸</span>
-                        <p>Click or drag to upload your photo</p>
+            
+            <div class="mode-toggle">
+                <button id="mode-upload" class="btn btn-small active">Upload Photo</button>
+                <button id="mode-webcam" class="btn btn-small">Use Webcam</button>
+            </div>
+
+            <div id="upload-container">
+                <div class="upload-area" id="upload-area">
+                    <input type="file" id="image-input" accept="image/*" hidden>
+                    <div id="preview-container">
+                        <img id="image-preview" src="#" alt="Preview" style="display: none; max-width: 100%; border-radius: 10px;">
+                        <div id="upload-label">
+                            <span class="upload-icon">📸</span>
+                            <p>Click or drag to upload your photo</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div id="webcam-container" style="display: none;">
+                <div id="webcam-viewer"></div>
+                <button id="start-webcam" class="btn btn-small" style="margin-top: 10px;">Start Camera</button>
+            </div>
+
             <div id="loading" style="display: none;">Analyzing...</div>
             <div id="result-container" style="display: none;">
                 <h3 id="result-label"></h3>
