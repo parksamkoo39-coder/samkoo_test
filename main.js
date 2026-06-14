@@ -1,4 +1,29 @@
-document.getElementById('generate').addEventListener('click', () => {
+const generateBtn = document.getElementById('generate');
+const themeToggle = document.getElementById('theme-toggle');
+const htmlElement = document.documentElement;
+
+// Theme Logic
+const currentTheme = localStorage.getItem('theme') || 'light';
+if (currentTheme === 'dark') {
+    htmlElement.setAttribute('data-theme', 'dark');
+    themeToggle.textContent = 'Light Mode';
+}
+
+themeToggle.addEventListener('click', () => {
+    const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+        htmlElement.removeAttribute('data-theme');
+        themeToggle.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+    } else {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggle.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+    }
+});
+
+// Lotto Generation Logic
+generateBtn.addEventListener('click', () => {
     const numbersContainer = document.getElementById('numbers');
     numbersContainer.innerHTML = '';
     const numbers = new Set();

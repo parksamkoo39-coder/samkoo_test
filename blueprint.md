@@ -1,18 +1,32 @@
 
 # Lotto Number Generator
 
-This is a simple web application that generates random lottery numbers.
+This is a simple web application that generates random lottery numbers with a modern, responsive UI and theme support.
 
 ## Features
 
-*   Generates 6 unique random numbers between 1 and 45.
-*   Displays the generated numbers in a visually appealing way.
-*   Modern and responsive design.
+*   **Lotto Generation:** Generates 6 unique random numbers between 1 and 45.
+*   **Animated UI:** Displays the generated numbers with a staggered animation and color-coded balls.
+*   **Theme Support:** Supports both Light and Dark modes, with persistence via LocalStorage.
+*   **Modern Design:** Clean, centered layout with expressive typography and polished shadows.
 
-## Current Plan
+## Project History & Implementation Details
 
-*   **Objective:** Create a lottery number generator website.
-*   **Steps:**
-    1.  Modify `index.html` to create the basic structure of the website.
-    2.  Modify `style.css` to add styles to the website.
-    3.  Modify `main.js` to add the lottery number generation functionality.
+*   **Base Framework:** Framework-less (Vanilla HTML/CSS/JS).
+*   **Styling:** Modern CSS using Flexbox, CSS Variables, and transitions.
+*   **Interactivity:** Vanilla JS for DOM manipulation and logic.
+
+## Current Plan: Add Theme Support (Light/Dark Mode)
+
+1.  **CSS Refactoring:**
+    *   Introduce CSS variables for background, text, container, and accent colors.
+    *   Define a `[data-theme="dark"]` selector to override these variables.
+2.  **UI Enhancement:**
+    *   Add a theme toggle button in the header/top corner of the container.
+    *   Use an icon or clear text to indicate the current state.
+3.  **JavaScript Logic:**
+    *   Implement a toggle function that switches the `data-theme` attribute on the `<html>` element.
+    *   Save the user preference in `localStorage`.
+    *   Apply the saved theme (or system preference) on page load.
+4.  **Deployment:**
+    *   Commit the changes and push to GitHub.
