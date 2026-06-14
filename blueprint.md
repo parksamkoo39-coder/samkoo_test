@@ -9,6 +9,7 @@ This is a simple web application that generates random lottery numbers with a mo
 *   **Animated UI:** Displays the generated numbers with a staggered animation and color-coded balls.
 *   **Theme Support:** Supports both Light and Dark modes, with persistence via LocalStorage.
 *   **Contact & Partnership Forms:** Integrated feedback and partnership inquiry forms using Formspree for backend processing.
+*   **Comments System:** Integrated Disqus for community engagement and feedback.
 *   **Modern Design:** Clean, centered layout with expressive typography and polished shadows.
 
 ## Project History & Implementation Details
