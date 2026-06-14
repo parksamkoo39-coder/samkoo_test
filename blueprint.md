@@ -8,7 +8,7 @@ This is a simple web application that generates random lottery numbers with a mo
 *   **Lotto Generation:** Generates 6 unique random numbers between 1 and 45.
 *   **Animated UI:** Displays the generated numbers with a staggered animation and color-coded balls.
 *   **Theme Support:** Supports both Light and Dark modes, with persistence via LocalStorage.
-*   **Contact Form:** Integrated a feedback/contact form using Formspree for backend processing.
+*   **Contact & Partnership Forms:** Integrated feedback and partnership inquiry forms using Formspree for backend processing.
 *   **Modern Design:** Clean, centered layout with expressive typography and polished shadows.
 
 ## Project History & Implementation Details

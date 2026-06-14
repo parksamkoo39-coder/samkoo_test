@@ -151,7 +151,8 @@ h1 {
 }
 
 .contact-section input, 
-.contact-section textarea {
+.contact-section textarea,
+.contact-section select {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid var(--shadow-color);
@@ -162,9 +163,14 @@ h1 {
 }
 
 .contact-section input:focus, 
-.contact-section textarea:focus {
+.contact-section textarea:focus,
+.contact-section select:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+.form-select {
+    cursor: pointer;
 }
 
 .contact-section textarea {
