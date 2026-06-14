@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lotto Number Generator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -14,6 +16,33 @@
             <div id="numbers" class="number-container"></div>
         </div>
         <button id="generate" class="btn">Generate Numbers</button>
+
+        <div class="test-section">
+            <h2>Animal Face Test</h2>
+            <p>Are you a Dog or a Cat?</p>
+            <div class="upload-area" id="upload-area">
+                <input type="file" id="image-input" accept="image/*" hidden>
+                <div id="preview-container">
+                    <img id="image-preview" src="#" alt="Preview" style="display: none; max-width: 100%; border-radius: 10px;">
+                    <div id="upload-label">
+                        <span class="upload-icon">📸</span>
+                        <p>Click or drag to upload your photo</p>
+                    </div>
+                </div>
+            </div>
+            <div id="loading" style="display: none;">Analyzing...</div>
+            <div id="result-container" style="display: none;">
+                <h3 id="result-label"></h3>
+                <div class="bar-container">
+                    <div id="dog-bar" class="bar dog"></div>
+                    <span id="dog-percent"></span>
+                </div>
+                <div class="bar-container">
+                    <div id="cat-bar" class="bar cat"></div>
+                    <span id="cat-percent"></span>
+                </div>
+            </div>
+        </div>
 
         <div class="contact-section">
             <h3>Send Feedback</h3>
